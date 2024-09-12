@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git branch: 'main', url: 'https://github.com/sebastin-unknown/jenkins-node.git'
+            }
+        }
+    stage('Build Docker Image'){
+            steps{
+                bat 'docker build -t newproject:01 .'
+                
+            }
+         
+        }    
+    }
+    stage('Run Docker Image'){
+            steps{
+                bat 'docker run -d -p 3010:3002 newproject:01'
+                
+            }
+        
+        }
+
+}
